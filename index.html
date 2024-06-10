@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="utf-8" />
+  <title>死亡名单</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #circle-container {
+      position: relative;
+      width: 40vh;
+      height: 40vh;
+    }
+
+    #circle {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: #016bff;
+      text-align: center;
+      line-height: calc(10vh - 20px);
+      font-size: 6vmin;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+  
+    .xuanfu {
+      position: fixed;
+      width: auto;
+      top: 1%;
+      right: 2px;
+      z-index: 99;
+    }
+
+    .instruction {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      color: rgb(0, 0, 0);
+    }
+  </style>
+</head>
+<body>
+  <a class="xuanfu" href="../index.html"><img width="50px" height="50px" src="../img/首页.png"></a>
+  <div class="instruction">Enter / 蓝色圆圈 </div>
+  <div id="circle-container"><div id="circle"></div></div>
+  <script>
+    document.onselectstart=function(){return false;};
+    var names = [
+    "林伟杰","尤昊翔","杨琦星","翁光正","林锦辉","李诺","许贤栎","许文庚","李其靖","江建豪","卢翔","黄智胜","江梓凌","陈婧怡","林俊杰","江芯蕾","严文亮","程志杰","李欣钰","林羽茜","王家琪","邱晓瑜","杨镐","林竞思","陈家明","何东博","任梓宸","陈世锦","陈可欣","翁秋霖","黄陆熙","刘烨","林欣瑜","杨婧琳","王凌枭","王正钧","黄茂鑫","魏琳","肖晴","张梦玲","罗若琪","张培鑫","姚紫晨","林俊辉","连鑫琳","李思娴","曹小华","黄雯馨","陈纤霞",
+    ];
+    var isRandomizing = false;
+    var randomIndex = -1;
+    var lastName = '';
+    var intervalId;
+
+    document.getElementById("circle").addEventListener('click', function() {
+      if (!isRandomizing) {
+        isRandomizing = true;
+        intervalId = setInterval(function() {
+          randomIndex = Math.floor(Math.random() * names.length);
+          lastName = names[randomIndex];
+          document.getElementById("circle").innerText = lastName;
+        }, 20);
+      } else {
+        isRandomizing = false;
+        clearInterval(intervalId);
+        lastName = document.getElementById("circle").innerText;
+      }
+    });
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        if (!isRandomizing) {
+          isRandomizing = true;
+          intervalId = setInterval(function() {
+            randomIndex = Math.floor(Math.random() * names.length);
+            lastName = names[randomIndex];
+            document.getElementById("circle").innerText = lastName;
+          }, 20);
+        } else {
+          isRandomizing = false;
+          clearInterval(intervalId);
+          lastName = document.getElementById("circle").innerText;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
